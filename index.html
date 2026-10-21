@@ -1,0 +1,1346 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>NEXUS Technologies</title>
+<!-- 한글 글꼴 (Google Fonts). 글꼴이 없으면 아래 fallback 글꼴이 사용됩니다. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap">
+<style>
+  /* ============================================================
+     1. 색상 설정 (CSS 변수)
+     색을 한 곳에서 바꾸고 싶을 때 여기 값만 고치면 됩니다.
+     ============================================================ */
+  :root {
+    --blue: #1565d8;        /* 메인 파란색 */
+    --blue-dark: #0b3d91;   /* 진한 파란색 (강조, 푸터) */
+    --blue-soft: #eef4fd;   /* 연한 파란색 (배경 박스) */
+    --white: #ffffff;       /* 흰색 */
+    --text: #1d2533;        /* 본문 글자색 */
+    --muted: #5d6779;       /* 설명 글자색 (연한 회색) */
+    --line: #e1e7f0;        /* 테두리 선 색 */
+    --danger: #c62828;      /* 필수 표시(*)와 오류 글자색 */
+    --wait-bg: #fff4e0;     /* 미답변 표시 배경 */
+    --wait-text: #8a5a00;   /* 미답변 표시 글자 */
+    color-scheme: light;
+  }
+
+  /* ============================================================
+     2. 기본 설정 (모든 요소에 공통으로 적용)
+     ============================================================ */
+  * {
+    box-sizing: border-box; /* padding이 너비에 포함되도록 설정 */
+  }
+
+  body {
+    margin: 0;
+    font-family: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--white);
+    /* 좌우 여백: 화면이 좁아도 최소 16px를 유지합니다 */
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+
+  a {
+    color: inherit;
+  }
+
+  /* [hidden] 속성이 붙은 요소는 화면에서 숨깁니다 */
+  [hidden] {
+    display: none !important;
+  }
+
+  /* 가운데 정렬 + 최대 너비를 정하는 상자 */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* 섹션(구역) 공통 여백 */
+  .section {
+    padding-block: 64px;
+  }
+
+  .section h2 {
+    font-size: 1.8rem;
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    margin: 0 0 32px;
+  }
+
+  /* ============================================================
+     3. 상단 메뉴 (헤더)
+     ============================================================ */
+  .site-header {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-inner {
+    display: flex;
+    flex-wrap: wrap;            /* 작은 화면에서는 줄바꿈 */
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px 16px;
+    padding-block: 16px;
+  }
+
+  /* 로고 */
+  .logo {
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: var(--blue);
+    font-weight: 900;
+  }
+
+  .logo span {
+    color: var(--text);
+    font-weight: 400;
+    margin-left: 6px;
+  }
+
+  /* 메뉴 + 버튼을 묶는 상자 */
+  .header-right {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 24px;
+  }
+
+  /* 메뉴 목록 */
+  .menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+  }
+
+  .menu a {
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 4px 0;
+  }
+
+  .menu a:hover {
+    color: var(--blue);
+  }
+
+  /* ============================================================
+     4. 버튼 공통 스타일
+     ============================================================ */
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .btn:disabled {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  /* 헤더의 작은 파란색 버튼 */
+  .btn-small {
+    padding: 8px 18px;
+    font-size: 0.95rem;
+  }
+
+  /* 히어로 안의 흰색 버튼 */
+  .btn-white {
+    background: var(--white);
+    color: var(--blue-dark);
+  }
+
+  /* 테두리만 있는 버튼 */
+  .btn-line {
+    background: var(--white);
+    color: var(--blue);
+    border: 1px solid var(--blue);
+    padding: 8px 18px;
+    font-size: 0.95rem;
+  }
+
+  /* 파란색 버튼 */
+  .btn-blue {
+    background: var(--blue);
+    color: var(--white);
+  }
+
+  .btn-blue:hover {
+    background: var(--blue-dark);
+  }
+
+  .btn:focus-visible,
+  a:focus-visible {
+    outline: 3px solid var(--blue-dark);
+    outline-offset: 3px;
+  }
+
+  /* 화면 위쪽에 잠깐 보여 주는 안내 문구 */
+  .notice {
+    background: var(--blue-soft);
+    color: var(--blue-dark);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-weight: 700;
+    margin: 24px 0 0;
+  }
+
+  /* ============================================================
+     5. 메인 제목과 소개 (히어로)
+     ============================================================ */
+  .hero {
+    margin-top: 24px;
+    padding: 64px 28px;
+    border-radius: 16px;
+    background: var(--blue);
+    color: var(--white);
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.18);
+    margin: 0 0 16px;
+  }
+
+  .hero h1 {
+    font-size: clamp(1.9rem, 5vw, 3rem);
+    line-height: 1.3;
+    margin: 0 0 16px;
+    text-wrap: balance;         /* 제목 줄바꿈을 보기 좋게 맞춤 */
+  }
+
+  .hero p {
+    font-size: 1.05rem;
+    max-width: 36em;
+    margin: 0;
+    opacity: 0.95;
+  }
+
+  .hero .btn {
+    margin-top: 28px;
+  }
+
+  /* ============================================================
+     6. 주요 서비스 카드 3개
+     ============================================================ */
+  /* 기본(모바일): 카드를 한 줄에 하나씩 */
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* 넓은 화면(768px 이상): 카드를 가로 3개로 배치 */
+  @media (min-width: 768px) {
+    .cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px 24px;
+    background: var(--white);
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--blue);
+    background: var(--blue-soft);
+    padding: 2px 10px;
+    border-radius: 6px;
+    margin-bottom: 14px;
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+    margin: 0 0 10px;
+  }
+
+  .card p {
+    color: var(--muted);
+    margin: 0;
+    font-size: 0.97rem;
+  }
+
+  /* ============================================================
+     7. 회사 소개 영역
+     ============================================================ */
+  .about-box {
+    background: var(--blue-soft);
+    border-radius: 16px;
+    padding: 40px 28px;
+  }
+
+  .about-box p {
+    margin: 0 0 14px;
+    max-width: 40em;
+  }
+
+  /* 숫자 통계 (자동으로 줄 수가 바뀌는 격자) */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+  }
+
+  .stat {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .stat strong {
+    display: block;
+    font-size: 2rem;
+    color: var(--blue);
+    line-height: 1.2;
+  }
+
+  .stat span {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  /* ============================================================
+     8. 오시는 길
+     ============================================================ */
+  .info-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 640px;
+  }
+
+  .info-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .info-list strong {
+    display: block;
+    color: var(--blue);
+    font-size: 0.9rem;
+  }
+
+  /* 지도 자리 (지도 서비스는 외부 연결이 막혀 있어 안내 상자로 대신함) */
+  .map-placeholder {
+    margin-top: 20px;
+    max-width: 640px;
+    border-radius: 12px;
+    background: var(--blue-soft);
+    color: var(--muted);
+    text-align: center;
+    padding: 48px 16px;
+    font-size: 0.95rem;
+  }
+
+  /* ============================================================
+     9. 문의하기 / 관리자 로그인 페이지 공통 스타일
+     ============================================================ */
+  .sub-page {
+    padding-block: 56px 64px;
+  }
+
+  .sub-page h1 {
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    margin: 0 0 8px;
+    line-height: 1.3;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: var(--blue);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+  /* 폼을 감싸는 흰색 카드 */
+  .form-box {
+    max-width: 720px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 32px 28px;
+    background: var(--white);
+  }
+
+  .form-box.narrow {
+    max-width: 420px;
+  }
+
+  .required-note {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin: 0 0 24px;
+  }
+
+  .star {
+    color: var(--danger);
+    font-weight: 700;
+  }
+
+  /* 입력 항목 한 줄 (모바일: 세로, 넓은 화면: 가로 2칸) */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0 20px;
+  }
+
+  @media (min-width: 640px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .field {
+    margin-bottom: 20px;
+    min-width: 0;   /* 글자가 길어도 칸 밖으로 튀어나가지 않게 함 */
+  }
+
+  .field label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: var(--white);
+    color: var(--text);
+  }
+
+  textarea {
+    min-height: 160px;
+    resize: vertical;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: 2px solid var(--blue);
+    border-color: var(--blue);
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .form-actions .btn {
+      width: auto;
+      min-width: 220px;
+    }
+  }
+
+  .form-message {
+    color: var(--blue-dark);
+    font-weight: 700;
+    min-height: 1.7em;
+    margin: 16px 0 0;
+  }
+
+  .form-error {
+    color: var(--danger);
+    font-size: 0.9rem;
+    margin: 6px 0 0;
+    min-height: 1.4em;
+  }
+
+  /* ============================================================
+     10. 관리자 대시보드
+     ============================================================ */
+  .admin-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px 16px;
+    margin-bottom: 24px;
+  }
+
+  .admin-head h1 {
+    margin: 0;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  /* 화면이 넓으면 왼쪽 목록 + 오른쪽 상세, 좁으면 세로로 쌓기 */
+  .admin-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  @media (min-width: 900px) {
+    .admin-grid {
+      grid-template-columns: 340px 1fr;
+    }
+  }
+
+  .inq-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--white);
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  .inq-list .empty {
+    padding: 32px 16px;
+  }
+
+  .inq-item button {
+    width: 100%;
+    text-align: left;
+    background: var(--white);
+    border: none;
+    border-bottom: 1px solid var(--line);
+    padding: 14px 16px;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--text);
+    display: block;
+  }
+
+  .inq-item button:hover {
+    background: var(--blue-soft);
+  }
+
+  .inq-item button[aria-current="true"] {
+    background: var(--blue-soft);
+    box-shadow: inset 4px 0 0 var(--blue);
+  }
+
+  .inq-sub {
+    display: block;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+  }
+
+  .inq-meta {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .detail {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px;
+    background: var(--white);
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .detail h2 {
+    font-size: 1.3rem;
+    margin: 0 0 16px;
+    line-height: 1.4;
+  }
+
+  .detail dl {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 8px 12px;
+    margin: 0 0 20px;
+  }
+
+  .detail dt {
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .detail dd {
+    margin: 0;
+  }
+
+  .content-box {
+    white-space: pre-wrap;
+    background: var(--blue-soft);
+    border-radius: 10px;
+    padding: 16px;
+    margin: 0 0 24px;
+  }
+
+  .pill {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: var(--blue-soft);
+    color: var(--blue-dark);
+  }
+
+  .pill.wait {
+    background: var(--wait-bg);
+    color: var(--wait-text);
+  }
+
+  .reply-area h3 {
+    font-size: 1.05rem;
+    margin: 0 0 8px;
+  }
+
+  .empty {
+    color: var(--muted);
+    text-align: center;
+    padding: 40px 16px;
+    margin: 0;
+  }
+
+  /* ============================================================
+     11. 푸터 (맨 아래 영역)
+     ============================================================ */
+  .site-footer {
+    background: var(--blue-dark);
+    color: var(--white);
+    padding-block: 32px;
+    font-size: 0.9rem;
+    margin-top: 24px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .site-footer p {
+    margin: 0 0 6px;
+  }
+
+  .site-footer .footer-inner {
+    padding-inline: 28px;
+  }
+
+  .site-footer a {
+    text-decoration: underline;
+  }
+</style>
+
+<!-- ============================================================
+     HTML 본문 (화면에 보이는 내용)
+     ※ 아래 화면들은 한 페이지 안에서 번갈아 보여집니다.
+     ============================================================ -->
+
+<header class="site-header">
+  <div class="container header-inner">
+    <!-- 로고 -->
+    <a class="logo" href="#top">NEXUS<span>Technologies</span></a>
+
+    <div class="header-right">
+      <!-- 상단 메뉴 -->
+      <nav class="menu" aria-label="주 메뉴">
+        <a href="#about">회사소개</a>
+        <a href="#products">제품소개</a>
+        <a href="#location">오시는길</a>
+        <a href="#inquiry">문의하기</a>
+        <a href="#admin">관리자</a>
+      </nav>
+
+      <!-- 헤더의 문의하기 버튼 -->
+      <a class="btn btn-blue btn-small" href="#inquiry">문의하기</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============================================================
+     [화면 1] 홈 화면
+     ============================================================ -->
+<main id="home-view" class="container">
+
+  <!-- 문의 접수 후 보여 주는 안내 문구 -->
+  <p id="home-notice" class="notice" role="status" hidden></p>
+
+  <!-- 메인 제목과 소개 문구 -->
+  <section class="hero">
+    <span class="hero-label">IT 솔루션 파트너</span>
+    <h1>기술로 연결하는 더 나은 비즈니스의 내일</h1>
+    <p>
+      NEXUS Technologies는 클라우드, 데이터, 보안을 하나로 묶어
+      기업이 흔들림 없이 성장할 수 있도록 돕습니다.
+    </p>
+    <!-- 메인의 문의하기 버튼 -->
+    <a class="btn btn-white" href="#inquiry">문의하기</a>
+  </section>
+
+  <!-- 주요 서비스 3개 카드 -->
+  <section id="products" class="section">
+    <h2>주요 서비스</h2>
+    <p class="section-desc">고객의 업무에 꼭 맞는 세 가지 핵심 서비스를 제공합니다.</p>
+
+    <div class="cards">
+      <article class="card">
+        <span class="card-tag">Cloud</span>
+        <h3>클라우드 플랫폼</h3>
+        <p>서버 관리를 줄이고 필요한 만큼만 자원을 사용하도록 돕는 안정적인 클라우드 환경을 구축합니다.</p>
+      </article>
+
+      <article class="card">
+        <span class="card-tag">Data</span>
+        <h3>AI 데이터 분석</h3>
+        <p>쌓여 있는 데이터를 이해하기 쉬운 그래프와 보고서로 바꾸어 빠른 의사결정을 지원합니다.</p>
+      </article>
+
+      <article class="card">
+        <span class="card-tag">Security</span>
+        <h3>보안 솔루션</h3>
+        <p>해킹과 개인정보 유출을 예방하는 다중 보안 체계로 소중한 정보를 지켜 드립니다.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 회사소개 영역 -->
+  <section id="about" class="section">
+    <h2>회사 소개</h2>
+    <p class="section-desc">2015년 설립 이후 고객과 함께 성장해 온 IT 기업입니다. (가상의 기업입니다)</p>
+
+    <div class="about-box">
+      <p>
+        NEXUS Technologies는 "사람과 기술을 연결한다(Nexus)"는 의미를 담아 설립되었습니다.
+        복잡한 기술을 누구나 쉽게 사용할 수 있도록 설계하는 것이 우리의 목표입니다.
+      </p>
+      <p>
+        우리는 고객의 이야기를 먼저 듣고, 실제 업무에 도움이 되는 해결책을 만드는 데 집중합니다.
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <strong>2015</strong>
+          <span>설립 연도</span>
+        </div>
+        <div class="stat">
+          <strong>120+</strong>
+          <span>임직원 수</span>
+        </div>
+        <div class="stat">
+          <strong>300+</strong>
+          <span>고객사 수</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 오시는 길 -->
+  <section id="location" class="section">
+    <h2>오시는 길</h2>
+    <p class="section-desc">편하게 방문해 주세요.</p>
+    <ul class="info-list">
+      <li>
+        <strong>주소</strong>
+        서울특별시 강남구 테헤란로 000 (가상 주소)
+      </li>
+      <li>
+        <strong>전화</strong>
+        02-0000-0000 (가상 번호)
+      </li>
+      <li>
+        <strong>운영 시간</strong>
+        평일 09:00 ~ 18:00 (주말 및 공휴일 휴무)
+      </li>
+    </ul>
+    <div class="map-placeholder">지도가 들어갈 자리입니다</div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     [화면 2] 문의하기 화면 (처음에는 숨겨져 있음)
+     ============================================================ -->
+<main id="inquiry-view" class="container sub-page" hidden>
+
+  <a class="back-link" href="#top">← 홈으로 돌아가기</a>
+
+  <h1>문의하기</h1>
+  <p class="section-desc">궁금한 점을 남겨 주시면 영업일 기준 1일 이내에 답변드립니다.</p>
+
+  <div class="form-box">
+    <p class="required-note"><span class="star">*</span> 표시는 필수 입력 항목입니다.</p>
+
+    <!-- novalidate: 브라우저 기본 경고 대신 아래 자바스크립트가 직접 안내합니다 -->
+    <form id="inquiry-form" novalidate>
+
+      <div class="form-row">
+        <div class="field">
+          <label for="inq-name">이름<span class="star">*</span></label>
+          <input type="text" id="inq-name" placeholder="홍길동" autocomplete="name">
+          <p class="form-error" id="err-name"></p>
+        </div>
+
+        <div class="field">
+          <label for="inq-email">이메일<span class="star">*</span></label>
+          <input type="email" id="inq-email" placeholder="example@email.com" autocomplete="email">
+          <p class="form-error" id="err-email"></p>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="inq-type">문의 유형</label>
+        <select id="inq-type">
+          <option value="제품문의">제품문의</option>
+          <option value="서비스 문의">서비스 문의</option>
+          <option value="제휴문의">제휴문의</option>
+          <option value="기타">기타</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="inq-subject">문의 제목<span class="star">*</span></label>
+        <input type="text" id="inq-subject" placeholder="문의 제목을 입력해 주세요">
+        <p class="form-error" id="err-subject"></p>
+      </div>
+
+      <div class="field">
+        <label for="inq-content">문의 내용<span class="star">*</span></label>
+        <textarea id="inq-content" placeholder="문의하실 내용을 자세히 적어 주세요."></textarea>
+        <p class="form-error" id="err-content"></p>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" id="inquiry-submit" class="btn btn-blue">문의 보내기</button>
+      </div>
+
+      <p id="form-message" class="form-message" role="status"></p>
+    </form>
+  </div>
+
+</main>
+
+<!-- ============================================================
+     [화면 3] 관리자 로그인 화면 (처음에는 숨겨져 있음)
+     ============================================================ -->
+<main id="admin-login-view" class="container sub-page" hidden>
+
+  <a class="back-link" href="#top">← 홈으로 돌아가기</a>
+
+  <h1>관리자 로그인</h1>
+  <p class="section-desc">관리자 아이디와 비밀번호를 입력해 주세요.</p>
+
+  <div class="form-box narrow">
+    <form id="login-form" novalidate>
+      <div class="field">
+        <label for="admin-id">아이디<span class="star">*</span></label>
+        <input type="text" id="admin-id" autocomplete="username">
+      </div>
+
+      <div class="field">
+        <label for="admin-pw">비밀번호<span class="star">*</span></label>
+        <input type="password" id="admin-pw" autocomplete="current-password">
+      </div>
+
+      <p class="form-error" id="login-error"></p>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-blue">로그인</button>
+      </div>
+    </form>
+  </div>
+
+</main>
+
+<!-- ============================================================
+     [화면 4] 관리자 대시보드 (로그인 후에만 보임)
+     ============================================================ -->
+<main id="admin-view" class="container sub-page" hidden>
+
+  <div class="admin-head">
+    <h1>관리자 대시보드</h1>
+    <button type="button" id="logout-btn" class="btn btn-line">로그아웃</button>
+  </div>
+
+  <!-- 문의 현황 숫자 -->
+  <div class="stats-row">
+    <div class="stat">
+      <strong id="stat-total">0</strong>
+      <span>전체 문의</span>
+    </div>
+    <div class="stat">
+      <strong id="stat-wait">0</strong>
+      <span>미답변</span>
+    </div>
+    <div class="stat">
+      <strong id="stat-done">0</strong>
+      <span>답변 완료</span>
+    </div>
+  </div>
+
+  <p id="admin-message" class="form-error" role="status"></p>
+
+  <div class="admin-grid">
+
+    <!-- 왼쪽: 문의 목록 -->
+    <ul id="inq-list" class="inq-list" aria-label="문의 목록"></ul>
+
+    <!-- 오른쪽: 선택한 문의의 내용과 답변 입력 -->
+    <section id="detail" class="detail">
+      <p id="detail-empty" class="empty">왼쪽 목록에서 문의를 선택해 주세요.</p>
+
+      <div id="detail-body" hidden>
+        <h2 id="d-subject"></h2>
+
+        <dl>
+          <dt>이름</dt>
+          <dd id="d-name"></dd>
+          <dt>이메일</dt>
+          <dd id="d-email"></dd>
+          <dt>문의 유형</dt>
+          <dd id="d-type"></dd>
+          <dt>접수일</dt>
+          <dd id="d-date"></dd>
+          <dt>상태</dt>
+          <dd><span id="d-status" class="pill"></span></dd>
+        </dl>
+
+        <p id="d-content" class="content-box"></p>
+
+        <div class="reply-area">
+          <h3>답변 작성</h3>
+          <textarea id="reply-text" placeholder="고객에게 보낼 답변을 입력해 주세요."></textarea>
+          <div class="form-actions">
+            <button type="button" id="reply-send" class="btn btn-blue">답변 보내기</button>
+          </div>
+          <p id="reply-message" class="form-message" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</main>
+
+<!-- 푸터 -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p><strong>NEXUS Technologies</strong></p>
+    <p>서울특별시 강남구 테헤란로 000 (가상 주소) | 02-0000-0000 (가상 번호)</p>
+    <p>© 2026 NEXUS Technologies. 이 페이지는 학습용으로 만든 가상의 기업 홈페이지입니다.</p>
+    <p><a href="#admin">관리자 로그인</a></p>
+  </div>
+</footer>
+
+<!-- ============================================================
+     자바스크립트
+     1) 메뉴 이동: 홈 / 문의하기 / 관리자 화면을 바꿔 보여 줍니다.
+     2) 문의 보내기: 입력을 확인한 뒤 데이터베이스(db)에 저장하고 홈으로 이동합니다.
+     3) 관리자: 로그인 후 문의 목록을 보고 답변을 저장합니다.
+     ============================================================ -->
+<script>
+  // ---------- 설정 ----------
+  // 관리자 계정 (학습용 예시입니다)
+  // 주의: 이 값은 페이지 소스에 그대로 보이므로 실제 서비스에서는 사용하면 안 됩니다.
+  var ADMIN_ID = 'admin';
+  var ADMIN_PASSWORD = 'nexus1234';
+
+  // ---------- 상태 값 ----------
+  var db = null;                 // 데이터 저장소 (연결되면 값이 들어옴)
+  var subscribed = false;        // 문의 목록을 이미 받아오고 있는지
+  var isAdminLoggedIn = false;   // 관리자 로그인 여부
+  var inquiries = [];            // 저장된 문의 목록
+  var selectedId = null;         // 관리자 화면에서 선택한 문의 id
+  var loadedReplyId = null;      // 답변 입력칸에 불러온 문의 id
+
+  // ---------- 화면 요소 가져오기 ----------
+  var views = {
+    home: document.getElementById('home-view'),
+    inquiry: document.getElementById('inquiry-view'),
+    adminLogin: document.getElementById('admin-login-view'),
+    admin: document.getElementById('admin-view')
+  };
+
+  // 저장소 연결 (데이터 기능을 쓸 수 있을 때만 db가 값을 가집니다)
+  (async function connectStore() {
+    try {
+      if (window.claude && window.claude.use) {
+        db = await window.claude.use('db');
+      }
+    } catch (e) {
+      db = null;
+    }
+    // 이미 관리자 로그인 상태였다면 목록을 불러옵니다
+    if (db && isAdminLoggedIn) {
+      startListening();
+    }
+  })();
+
+  // ---------- 화면 전환 ----------
+  // name: 'home' | 'inquiry' | 'adminLogin' | 'admin'
+  function showView(name) {
+    // 관리자 화면은 로그인하지 않으면 로그인 화면을 보여 줍니다
+    if (name === 'admin' && !isAdminLoggedIn) {
+      name = 'adminLogin';
+    }
+    for (var key in views) {
+      views[key].hidden = (key !== name);
+    }
+    window.scrollTo(0, 0);
+  }
+
+  // 메뉴 링크를 눌렀을 때 어디로 갈지 정합니다
+  function goTo(target) {
+    if (target === 'inquiry') {
+      showView('inquiry');
+      return;
+    }
+    if (target === 'admin') {
+      showView('admin');
+      return;
+    }
+    // 홈 화면의 특정 구역(회사소개, 제품소개 등)으로 이동
+    showView('home');
+    if (target === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    var section = document.getElementById(target);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // 페이지 안의 모든 #링크를 goTo 함수로 연결합니다
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function (event) {
+      event.preventDefault();
+      goTo(link.getAttribute('href').slice(1));
+    });
+  });
+
+  // 안내 문구 보여 주기 (홈 화면 위쪽에 잠깐 표시)
+  function showHomeNotice(text) {
+    var notice = document.getElementById('home-notice');
+    notice.textContent = text;
+    notice.hidden = false;
+  }
+
+  // ---------- 입력 확인 도우미 ----------
+  // 값이 비어 있으면 오류 문구를 보여 주고 false를 돌려줍니다
+  function checkRequired(inputId, errorId, text) {
+    var value = document.getElementById(inputId).value.trim();
+    var error = document.getElementById(errorId);
+    if (value === '') {
+      error.textContent = text;
+      return false;
+    }
+    error.textContent = '';
+    return true;
+  }
+
+  // 이메일 형식 확인 (예: abc@email.com)
+  function checkEmail() {
+    var value = document.getElementById('inq-email').value.trim();
+    var error = document.getElementById('err-email');
+    if (value === '') {
+      error.textContent = '이메일을 입력해 주세요.';
+      return false;
+    }
+    if (value.indexOf('@') === -1 || value.indexOf('.') === -1) {
+      error.textContent = '이메일 형식이 올바르지 않습니다. 예: example@email.com';
+      return false;
+    }
+    error.textContent = '';
+    return true;
+  }
+
+  // 날짜를 한국 시간으로 보기 좋게 바꿉니다
+  function formatDate(iso) {
+    if (!iso) return '';
+    var date = new Date(iso);
+    if (isNaN(date.getTime())) return '';
+    return date.toLocaleString('ko-KR', {
+      timeZone: 'Asia/Seoul',
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }
+
+  // ---------- 1) 문의 보내기 ----------
+  var inquiryForm = document.getElementById('inquiry-form');
+  var inquirySubmit = document.getElementById('inquiry-submit');
+  var formMessage = document.getElementById('form-message');
+
+  inquiryForm.addEventListener('submit', async function (event) {
+    event.preventDefault();   // 페이지가 새로고침되는 것을 막습니다
+    formMessage.textContent = '';
+
+    // 필수 항목을 모두 확인합니다 (&&는 "모두 맞아야 통과"라는 뜻입니다)
+    var nameOk = checkRequired('inq-name', 'err-name', '이름을 입력해 주세요.');
+    var emailOk = checkEmail();
+    var subjectOk = checkRequired('inq-subject', 'err-subject', '문의 제목을 입력해 주세요.');
+    var contentOk = checkRequired('inq-content', 'err-content', '문의 내용을 입력해 주세요.');
+
+    if (!(nameOk && emailOk && subjectOk && contentOk)) {
+      formMessage.textContent = '필수 입력 항목을 확인해 주세요.';
+      return;
+    }
+
+    if (!db) {
+      formMessage.textContent = '현재 서버에 연결할 수 없어 문의를 저장하지 못했습니다.';
+      return;
+    }
+
+    // 서버(db)에 문의 내용을 저장합니다
+    inquirySubmit.disabled = true;
+    try {
+      await db.collection('inquiries').add({
+        name: document.getElementById('inq-name').value.trim(),
+        email: document.getElementById('inq-email').value.trim(),
+        type: document.getElementById('inq-type').value,
+        subject: document.getElementById('inq-subject').value.trim(),
+        content: document.getElementById('inq-content').value.trim(),
+        status: '미답변',
+        reply: '',
+        repliedAt: '',
+        createdAt: new Date().toISOString()
+      });
+
+      // 저장에 성공하면 입력칸을 비우고 메인 페이지로 이동합니다
+      inquiryForm.reset();
+      showView('home');
+      showHomeNotice('문의가 정상적으로 접수되었습니다. 빠른 시일 내에 답변드리겠습니다.');
+    } catch (err) {
+      if (err && err.code === 'quota_exceeded') {
+        formMessage.textContent = '문의를 더 이상 저장할 수 없습니다. 관리자에게 알려 주세요.';
+      } else {
+        formMessage.textContent = '전송에 실패했습니다. 잠시 후 다시 시도해 주세요.';
+      }
+    } finally {
+      inquirySubmit.disabled = false;
+    }
+  });
+
+  // ---------- 2) 관리자 로그인 ----------
+  var loginForm = document.getElementById('login-form');
+  var loginError = document.getElementById('login-error');
+
+  loginForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var id = document.getElementById('admin-id').value.trim();
+    var pw = document.getElementById('admin-pw').value;
+
+    if (id === '' || pw === '') {
+      loginError.textContent = '아이디와 비밀번호를 모두 입력해 주세요.';
+      return;
+    }
+    if (id !== ADMIN_ID || pw !== ADMIN_PASSWORD) {
+      loginError.textContent = '아이디 또는 비밀번호가 올바르지 않습니다.';
+      return;
+    }
+
+    // 로그인 성공
+    isAdminLoggedIn = true;
+    loginError.textContent = '';
+    loginForm.reset();
+    startListening();
+    showView('admin');
+  });
+
+  // 로그아웃: 홈 화면으로 돌아갑니다
+  document.getElementById('logout-btn').addEventListener('click', function () {
+    isAdminLoggedIn = false;
+    selectedId = null;
+    loadedReplyId = null;
+    showView('home');
+  });
+
+  // ---------- 3) 관리자 대시보드: 문의 목록 불러오기 ----------
+  // 문의 목록은 한 번만 연결하고, 새 문의나 답변이 생기면 자동으로 갱신됩니다
+  function startListening() {
+    if (subscribed) return;
+    if (!db) {
+      setAdminMessage('데이터 서버에 연결되지 않아 문의 목록을 불러올 수 없습니다.');
+      return;
+    }
+    subscribed = true;
+    db.collection('inquiries')
+      .orderBy('createdAt', 'desc')
+      .limit(500)
+      .onSnapshot(function (snap) {
+        inquiries = snap.docs
+          .filter(function (doc) { return doc.exists; })
+          .map(function (doc) {
+            return Object.assign({ id: doc.id }, doc.data());
+          });
+        setAdminMessage('');
+        renderAdmin();
+      }, function () {
+        subscribed = false;
+        setAdminMessage('문의 목록을 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.');
+      });
+  }
+
+  function setAdminMessage(text) {
+    document.getElementById('admin-message').textContent = text;
+  }
+
+  // 화면 전체 다시 그리기
+  function renderAdmin() {
+    var waiting = inquiries.filter(function (q) { return q.status !== '답변완료'; }).length;
+    document.getElementById('stat-total').textContent = inquiries.length;
+    document.getElementById('stat-wait').textContent = waiting;
+    document.getElementById('stat-done').textContent = inquiries.length - waiting;
+
+    renderList();
+    renderDetail();
+  }
+
+  // 왼쪽 목록 그리기 (글자는 textContent로 넣어 안전하게 보여 줍니다)
+  function renderList() {
+    var list = document.getElementById('inq-list');
+    list.textContent = '';
+
+    if (inquiries.length === 0) {
+      var empty = document.createElement('li');
+      empty.className = 'empty';
+      empty.textContent = '아직 접수된 문의가 없습니다.';
+      list.appendChild(empty);
+      return;
+    }
+
+    inquiries.forEach(function (q) {
+      var li = document.createElement('li');
+      li.className = 'inq-item';
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.setAttribute('aria-current', String(q.id === selectedId));
+
+      var sub = document.createElement('span');
+      sub.className = 'inq-sub';
+      sub.textContent = q.subject || '(제목 없음)';
+
+      var meta = document.createElement('span');
+      meta.className = 'inq-meta';
+      meta.textContent = (q.name || '') + ' · ' + (q.status || '미답변') + ' · ' + formatDate(q.createdAt);
+
+      btn.appendChild(sub);
+      btn.appendChild(meta);
+      btn.addEventListener('click', function () {
+        selectedId = q.id;
+        renderAdmin();
+      });
+
+      li.appendChild(btn);
+      list.appendChild(li);
+    });
+  }
+
+  // 오른쪽 상세 그리기
+  function renderDetail() {
+    // 선택된 문의가 없으면 가장 위의 문의를 자동으로 선택합니다
+    var q = inquiries.find(function (item) { return item.id === selectedId; });
+    if (!q && inquiries.length > 0) {
+      q = inquiries[0];
+      selectedId = q.id;
+    }
+
+    var body = document.getElementById('detail-body');
+    var emptyText = document.getElementById('detail-empty');
+
+    if (!q) {
+      body.hidden = true;
+      emptyText.hidden = false;
+      return;
+    }
+
+    body.hidden = false;
+    emptyText.hidden = true;
+
+    document.getElementById('d-subject').textContent = q.subject || '(제목 없음)';
+    document.getElementById('d-name').textContent = q.name || '';
+    document.getElementById('d-email').textContent = q.email || '';
+    document.getElementById('d-type').textContent = q.type || '';
+    document.getElementById('d-date').textContent = formatDate(q.createdAt);
+    document.getElementById('d-content').textContent = q.content || '';
+
+    var status = document.getElementById('d-status');
+    status.textContent = q.status || '미답변';
+    status.className = (q.status === '답변완료') ? 'pill' : 'pill wait';
+
+    // 다른 문의를 선택했을 때만 답변 입력칸을 채웁니다
+    // (입력 중에 목록이 갱신되어도 작성 중인 글이 지워지지 않게 하기 위해서입니다)
+    if (loadedReplyId !== q.id) {
+      document.getElementById('reply-text').value = q.reply || '';
+      document.getElementById('reply-message').textContent = '';
+      loadedReplyId = q.id;
+    }
+  }
+
+  // ---------- 4) 답변 보내기 ----------
+  var replySend = document.getElementById('reply-send');
+  var replyMessage = document.getElementById('reply-message');
+
+  replySend.addEventListener('click', async function () {
+    var text = document.getElementById('reply-text').value.trim();
+    replyMessage.textContent = '';
+
+    if (!selectedId) return;
+    if (text === '') {
+      replyMessage.textContent = '답변 내용을 입력해 주세요.';
+      return;
+    }
+    if (!db) {
+      replyMessage.textContent = '데이터 서버에 연결되지 않아 답변을 저장하지 못했습니다.';
+      return;
+    }
+
+    replySend.disabled = true;
+    try {
+      // 선택한 문의에 답변과 상태(답변완료)를 저장합니다
+      await db.collection('inquiries').doc(selectedId).update({
+        reply: text,
+        status: '답변완료',
+        repliedAt: new Date().toISOString()
+      });
+      replyMessage.textContent = '답변이 저장되었습니다.';
+    } catch (err) {
+      replyMessage.textContent = '답변 저장에 실패했습니다. 다시 시도해 주세요.';
+    } finally {
+      replySend.disabled = false;
+    }
+  });
+
+  // 처음 열면 홈 화면을 보여 줍니다
+  showView('home');
+</script>
+
+</body></html>
